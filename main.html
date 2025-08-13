@@ -1,12 +1,52 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car & SportsCar Example</title>
 </head>
-
 <body>
+  <h1>Car & SportsCar Example</h1>
+
+  <button id="showCarInfo">Show Car Info</button>
+  <div id="output"></div>
+
+  <script>
+    // Car class
+    class Car {
+      constructor(make, model) {
+        this.make = make;
+        this.model = model;
+      }
+      getMakeModel() {
+        return `${this.make} ${this.model}`;
+      }
+    }
+
+    // SportsCar class extending Car
+    class SportsCar extends Car {
+      constructor(make, model, topSpeed) {
+        super(make, model);
+        this.topSpeed = topSpeed;
+      }
+      getTopSpeed() {
+        return this.topSpeed;
+      }
+    }
+
+    // Create a SportsCar instance
+    const myCar = new SportsCar("Ferrari", "Testarossa", 200);
+
+    // Button click event
+    document.getElementById("showCarInfo").addEventListener("click", () => {
+      const output = `
+        Make & Model: ${myCar.getMakeModel()}<br>
+        Top Speed: ${myCar.getTopSpeed()} mph
+      `;
+      document.getElementById("output").innerHTML = output;
+    });
+  </script>
+
 	<!-- the entire body must be written by student -->
     <script type="text/javascript" src="./script.js">
 </script>

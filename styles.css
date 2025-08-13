@@ -1,1 +1,29 @@
-/*  your css code here. If applicable */
+// Base class
+class Car {
+  constructor(make, model) {
+    this.make = make;
+    this.model = model;
+  }
+
+  getMakeModel() {
+    return `${this.make} ${this.model}`;
+  }
+}
+
+// Subclass
+class SportsCar extends Car {
+  constructor(make, model, topSpeed) {
+    super(make, model);
+    this.topSpeed = topSpeed;
+  }
+
+  getTopSpeed() {
+    return this.topSpeed;
+  }
+}
+
+// Example:
+const car = new SportsCar("Ferrari", "Testarossa", 200);
+console.log(car.getMakeModel()); // Ferrari Testarossa
+console.log(car.getTopSpeed());  // 200
+
