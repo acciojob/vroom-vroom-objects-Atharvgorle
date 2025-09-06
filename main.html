@@ -2,55 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Car & SportsCar Example</title>
 </head>
 <body>
-  <h1>Car & SportsCar Example</h1>
-
-  <button id="showCarInfo">Show Car Info</button>
-  <div id="output"></div>
+  <h2>Car and SportsCar Constructor Example</h2>
+  <pre id="output"></pre>
 
   <script>
-    // Car class
-    class Car {
-      constructor(make, model) {
-        this.make = make;
-        this.model = model;
-      }
-      getMakeModel() {
-        return `${this.make} ${this.model}`;
-      }
+    // Car Constructor
+    function Car(make, model) {
+      this.make = make;
+      this.model = model;
     }
 
-    // SportsCar class extending Car
-    class SportsCar extends Car {
-      constructor(make, model, topSpeed) {
-        super(make, model);
-        this.topSpeed = topSpeed;
-      }
-      getTopSpeed() {
-        return this.topSpeed;
-      }
+    // Method on Car prototype
+    Car.prototype.getMakeModel = function() {
+      return this.make + " " + this.model;
+    };
+
+    // SportsCar Constructor (inherits from Car)
+    function SportsCar(make, model, topSpeed) {
+      // Call Car constructor
+      Car.call(this, make, model);
+      this.topSpeed = topSpeed;
     }
 
-    // Create a SportsCar instance
-    const myCar = new SportsCar("Ferrari", "Testarossa", 200);
+    // Inherit from Car prototype
+    SportsCar.prototype = Object.create(Car.prototype);
+    SportsCar.prototype.constructor = SportsCar;
 
-    // Button click event
-    document.getElementById("showCarInfo").addEventListener("click", () => {
-      const output = `
-        Make & Model: ${myCar.getMakeModel()}<br>
-        Top Speed: ${myCar.getTopSpeed()} mph
-      `;
-      document.getElementById("output").innerHTML = output;
-    });
+    // Method on SportsCar prototype
+    SportsCar.prototype.getTopSpeed = function() {
+      return this.topSpeed;
+    };
+
+    // ---- Test Cases ----
+    const car = new SportsCar("Ferrari", "Testarossa", 200);
+
+    let output = "";
+    output += "Make & Model: " + car.getMakeModel() + "\n"; // Ferrari Testarossa
+    output += "Top Speed: " + car.getTopSpeed() + " mph\n"; // 200
+    output += "Direct Access → Make: " + car.make + ", Model: " + car.model + "\n"; // Ferrari, Testarossa
+    output += "Inheritance Check → car instanceof SportsCar: " + (car instanceof SportsCar) + "\n";
+    output += "Inheritance Check → car instanceof Car: " + (car instanceof Car) + "\n";
+
+    document.getElementById("output").textContent = output;
   </script>
-
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
-
 </body>
-
 </html>
+
+

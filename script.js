@@ -1,34 +1,34 @@
-// Car Constructor Function
+// Car Constructor
 function Car(make, model) {
   this.make = make;
   this.model = model;
 }
 
-// Add method to Car prototype
-Car.prototype.getMakeModel = function () {
+// Method on Car prototype
+Car.prototype.getMakeModel = function() {
   return this.make + " " + this.model;
 };
 
-// SportsCar Constructor Function
+// SportsCar Constructor (inherits from Car)
 function SportsCar(make, model, topSpeed) {
-  // Call Car constructor to set make & model
-  Car.call(this, make, model);
+  Car.call(this, make, model); // Call Car constructor
   this.topSpeed = topSpeed;
 }
 
 // Inherit from Car prototype
 SportsCar.prototype = Object.create(Car.prototype);
-
-// Restore constructor property
 SportsCar.prototype.constructor = SportsCar;
 
-// Add method to SportsCar prototype
-SportsCar.prototype.getTopSpeed = function () {
+// Method on SportsCar prototype
+SportsCar.prototype.getTopSpeed = function() {
   return this.topSpeed;
 };
 
-// Example usage:
+// ---- Test Cases ----
 const car = new SportsCar("Ferrari", "Testarossa", 200);
-console.log(car.getMakeModel()); // Output: Ferrari Testarossa
-console.log(car.getTopSpeed());  // Output: 200
 
+console.log("Make & Model:", car.getMakeModel()); // Ferrari Testarossa
+console.log("Top Speed:", car.getTopSpeed(), "mph"); // 200
+console.log("Direct Access → Make:", car.make, ", Model:", car.model); // Ferrari, Testarossa
+console.log("Inheritance Check → car instanceof SportsCar:", car instanceof SportsCar); // true
+console.log("Inheritance Check → car instanceof Car:", car instanceof Car); // true
